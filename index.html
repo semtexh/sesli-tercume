@@ -267,8 +267,9 @@
       });
 
       if (!ttsRes.ok) {
-        const err = await ttsRes.json();
-        transEl.textContent += ' ⚠️ TTS: ' + (err.error || 'hata');
+        const errText = await ttsRes.text();
+        console.error('TTS status:', ttsRes.status, errText);
+        transEl.textContent += ' ⚠️ TTS ' + ttsRes.status + ': ' + errText.slice(0, 100);
         transEl.classList.remove('playing');
         stopListening(); return;
       }
