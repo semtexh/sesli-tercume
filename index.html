@@ -18,41 +18,30 @@
   header p { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
 
   .setup { margin: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
-  .setup-row { display: flex; gap: 8px; align-items: center; }
-  .setup-row label { font-size: 11px; color: var(--text-dim); white-space: nowrap; min-width: 80px; }
-  .api-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 12px; font-family: monospace; outline: none; }
-  .api-input:focus { border-color: var(--gold-dim); }
-  .save-btn { background: var(--gold); color: #000; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-  .key-status { font-size: 11px; text-align: center; }
-  .key-status.ok { color: var(--success); }
-  .key-status.err { color: var(--error); }
-
-  .room-bar { margin: 0 12px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; display: flex; gap: 8px; align-items: center; }
-  .room-bar label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
-  .room-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 13px; font-weight: 600; outline: none; text-transform: uppercase; letter-spacing: 1px; }
-  .join-btn { background: var(--en-color); color: #000; border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; }
-  .join-btn.connected { background: var(--success); }
-  .connected-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); display: inline-block; margin-right: 4px; animation: blink 1.5s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
   .voice-row { display: flex; gap: 8px; align-items: center; }
   .voice-row label { font-size: 11px; color: var(--text-dim); white-space: nowrap; min-width: 80px; }
   .voice-select { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; color: var(--text); font-size: 12px; outline: none; }
+  .setup-title { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .room-bar { margin: 0 12px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; display: flex; gap: 8px; align-items: center; }
+  .room-bar label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+  .room-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 15px; font-weight: 700; outline: none; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
+  .join-btn { background: var(--en-color); color: #000; border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .join-btn.connected { background: var(--success); }
 
   .speakers { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 12px 12px; }
-  .speaker-card { background: var(--surface); border: 2px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; min-height: 180px; transition: border-color 0.3s; }
+  .speaker-card { background: var(--surface); border: 2px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; min-height: 180px; transition: border-color 0.3s, background 0.3s; }
   .speaker-card.tr-card { border-color: rgba(232,168,76,0.3); }
   .speaker-card.en-card { border-color: rgba(76,168,232,0.3); }
   .speaker-card.tr-card.listening { border-color: var(--tr-color); animation: pulse-border 1s infinite; }
   .speaker-card.en-card.listening { border-color: var(--en-color); animation: pulse-border 1s infinite; }
-  .speaker-card.incoming { background: rgba(76,175,122,0.08); border-color: var(--success) !important; }
+  .speaker-card.incoming { background: rgba(76,175,122,0.08); border-color: var(--success) !important; animation: none !important; }
   @keyframes pulse-border { 0%,100%{opacity:1} 50%{opacity:0.6} }
   .speaker-flag { font-size: 28px; }
   .speaker-name { font-size: 14px; font-weight: 700; }
   .speaker-lang { font-size: 10px; color: var(--text-dim); margin-top: -6px; text-align: center; }
-
-  .btn-row { display: flex; gap: 8px; align-items: center; }
-  .mic-btn { width: 68px; height: 68px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 26px; transition: transform 0.15s; flex-shrink: 0; }
+  .btn-row { display: flex; gap: 10px; align-items: center; }
+  .mic-btn { width: 68px; height: 68px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 26px; transition: transform 0.15s; }
   .tr-card .mic-btn { background: linear-gradient(135deg,#e8a84c,#c07830); box-shadow: 0 4px 16px rgba(232,168,76,0.35); }
   .en-card .mic-btn { background: linear-gradient(135deg,#4ca8e8,#2080c0); box-shadow: 0 4px 16px rgba(76,168,232,0.35); }
   .mic-btn:active { transform: scale(0.92); }
@@ -60,11 +49,9 @@
   .en-card .mic-btn.recording { animation: mic-pulse-en 0.8s infinite; }
   @keyframes mic-pulse-tr { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,168,76,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 16px rgba(232,168,76,0)} 100%{transform:scale(1)} }
   @keyframes mic-pulse-en { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(76,168,232,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 16px rgba(76,168,232,0)} 100%{transform:scale(1)} }
-
-  .repeat-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); color: var(--text-dim); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .repeat-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); color: var(--text-dim); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; }
   .repeat-btn:active { transform: scale(0.92); }
   .repeat-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
-
   .mic-btn-label { font-size: 10px; color: var(--text-dim); margin-top: -4px; }
   .status-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; width: 100%; }
   .status-bar-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.4s; }
@@ -90,12 +77,7 @@
 </header>
 
 <div class="setup">
-  <div class="setup-row">
-    <label>Gemini Key</label>
-    <input type="password" class="api-input" id="geminiKey" placeholder="AIza...">
-    <button class="save-btn" onclick="saveKeys()">Kaydet</button>
-  </div>
-  <div class="key-status" id="keyStatus"></div>
+  <div class="setup-title">Ses Tercihi</div>
   <div class="voice-row">
     <label>🇹🇷 Annem</label>
     <select class="voice-select" id="trVoice">
@@ -119,7 +101,7 @@
 </div>
 
 <div class="room-bar">
-  <label>Oda Kodu</label>
+  <label>Oda</label>
   <input type="text" class="room-input" id="roomCode" placeholder="AILE" maxlength="8">
   <button class="join-btn" id="joinBtn" onclick="toggleRoom()">Bağlan</button>
 </div>
@@ -131,7 +113,7 @@
     <div class="speaker-lang">Türkçe konuşur → İngilizceye çevrilir</div>
     <div class="btn-row">
       <button class="mic-btn" id="trMicBtn" onclick="startListening('tr')">🎤</button>
-      <button class="repeat-btn" id="trRepeat" onclick="repeatLast('tr')" title="Tekrarla">🔁</button>
+      <button class="repeat-btn" onclick="repeatLast('tr')" title="Tekrarla">🔁</button>
     </div>
     <div class="mic-btn-label" id="trMicLabel">Bas ve konuş</div>
     <div class="status-bar"><div class="status-bar-fill" id="trBar"></div></div>
@@ -153,7 +135,7 @@
     <div class="speaker-lang">English → Türkçeye çevrilir</div>
     <div class="btn-row">
       <button class="mic-btn" id="enMicBtn" onclick="startListening('en')">🎤</button>
-      <button class="repeat-btn" id="enRepeat" onclick="repeatLast('en')" title="Repeat">🔁</button>
+      <button class="repeat-btn" onclick="repeatLast('en')" title="Repeat">🔁</button>
     </div>
     <div class="mic-btn-label" id="enMicLabel">Press and speak</div>
     <div class="status-bar"><div class="status-bar-fill" id="enBar"></div></div>
@@ -168,36 +150,20 @@
 <script>
   const SUPABASE_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkcnJpZ3dyaHB1aGFxdnFnaGh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MzIzNTMsImV4cCI6MjA5MDAwODM1M30.nOGOhdh12wHmkLBAbhKa2LzMxjFiJXrWi3JnhMOSceA';
-  const TTS_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co/functions/v1/tercume-tts';
+  const TRANSLATE_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co/functions/v1/tercume-tts';
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
   let channel = null;
   let isConnected = false;
-  let lastTranslated = { tr: null, en: null };
+  let lastAudio = { tr: null, en: null };
 
-  // Load saved
-  document.getElementById('geminiKey').value = localStorage.getItem('t_geminiKey') || '';
+  // Load prefs
   document.getElementById('trVoice').value = localStorage.getItem('t_trVoice') || 'Zephyr';
   document.getElementById('enVoice').value = localStorage.getItem('t_enVoice') || 'Puck';
   document.getElementById('roomCode').value = localStorage.getItem('t_roomCode') || 'AILE';
 
-  if (localStorage.getItem('t_geminiKey')) showStatus('✓ Hazır!', 'ok');
-
   document.getElementById('trVoice').onchange = () => localStorage.setItem('t_trVoice', document.getElementById('trVoice').value);
   document.getElementById('enVoice').onchange = () => localStorage.setItem('t_enVoice', document.getElementById('enVoice').value);
-
-  function showStatus(msg, type) {
-    const el = document.getElementById('keyStatus');
-    el.textContent = msg;
-    el.className = 'key-status ' + type;
-  }
-
-  function saveKeys() {
-    const gk = document.getElementById('geminiKey').value.trim();
-    if (!gk) { showStatus('✗ Gemini key boş', 'err'); return; }
-    localStorage.setItem('t_geminiKey', gk);
-    showStatus('✓ Kaydedildi!', 'ok');
-  }
 
   // Room
   async function toggleRoom() {
@@ -209,39 +175,36 @@
       document.getElementById('joinBtn').classList.remove('connected');
       return;
     }
-
     const code = document.getElementById('roomCode').value.trim().toUpperCase();
     if (!code) { alert('Oda kodu gir!'); return; }
     localStorage.setItem('t_roomCode', code);
 
-    channel = supabase.channel('tercume-' + code, { config: { broadcast: { self: false } } });
-
-    channel.on('broadcast', { event: 'translation' }, ({ payload }) => {
-      handleIncoming(payload);
-    });
-
+    channel = supabaseClient.channel('tercume-' + code, { config: { broadcast: { self: false } } });
+    channel.on('broadcast', { event: 'translation' }, ({ payload }) => handleIncoming(payload));
     await channel.subscribe();
+
     isConnected = true;
     document.getElementById('joinBtn').textContent = '🟢 Bağlı';
     document.getElementById('joinBtn').classList.add('connected');
   }
 
   async function handleIncoming(payload) {
-    const { fromLang, original, translated } = payload;
-    const myLang = fromLang === 'tr' ? 'en' : 'tr';
+    const { fromLang, original, translated, audio } = payload;
 
-    // Show on my screen
     document.getElementById(fromLang + 'Original').textContent = original;
-    document.getElementById(fromLang + 'Translated').textContent = translated;
-    lastTranslated[fromLang] = { translated, toLang: myLang };
+    const transEl = document.getElementById(fromLang + 'Translated');
+    transEl.textContent = translated;
+    transEl.classList.add('playing');
 
-    // Flash incoming
     const card = document.getElementById(fromLang + 'Card');
     card.classList.add('incoming');
-    setTimeout(() => card.classList.remove('incoming'), 2000);
+    setTimeout(() => { card.classList.remove('incoming'); transEl.classList.remove('playing'); }, 3000);
 
-    // Play TTS on my device
-    await playTTS(translated, myLang);
+    // Play audio received from broadcast
+    if (audio) {
+      await playBase64Audio(audio);
+      lastAudio[fromLang] = audio;
+    }
   }
 
   // Speech recognition
@@ -253,7 +216,6 @@
 
   async function startListening(lang) {
     if (isListening) { stopListening(); return; }
-    if (!localStorage.getItem('t_geminiKey')) { alert('Önce Gemini API key girin!'); return; }
     if (!SpeechRec) { alert('Chrome kullanın!'); return; }
 
     isListening = true;
@@ -263,7 +225,7 @@
     btn.classList.add('recording');
     btn.textContent = '⏹️';
     setLabel(lang, lang === 'tr' ? 'Dinliyor...' : 'Listening...');
-    setBar(lang, 25);
+    setBar(lang, 20);
 
     recognition = new SpeechRec();
     recognition.lang = lang === 'tr' ? 'tr-TR' : 'en-US';
@@ -274,7 +236,7 @@
       const transcript = Array.from(e.results).map(r => r[0].transcript).join('');
       document.getElementById(lang + 'Original').textContent = transcript;
       if (e.results[e.results.length - 1].isFinal) {
-        setBar(lang, 55);
+        setBar(lang, 50);
         setLabel(lang, lang === 'tr' ? 'Çeviriliyor...' : 'Translating...');
         await translateAndBroadcast(lang, transcript);
       }
@@ -304,39 +266,46 @@
   }
 
   async function translateAndBroadcast(fromLang, text) {
-    const geminiKey = localStorage.getItem('t_geminiKey');
-    const toLang = fromLang === 'tr' ? 'en' : 'tr';
-
-    const prompt = fromLang === 'tr'
-      ? `Translate this Turkish text to natural English. Return ONLY the translation:\n${text}`
-      : `Bu İngilizce metni doğal Türkçeye çevir. SADECE çeviriyi yaz:\n${text}`;
+    const trVoice = document.getElementById('trVoice').value;
+    const enVoice = document.getElementById('enVoice').value;
 
     try {
-      const transRes = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 500, temperature: 0.3 } })
-        }
-      );
-      const transData = await transRes.json();
-      if (transData.error) { document.getElementById(fromLang + 'Translated').textContent = '⚠️ ' + transData.error.message; stopListening(); return; }
+      const res = await fetch(TRANSLATE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON}` },
+        body: JSON.stringify({ text, fromLang, trVoice, enVoice })
+      });
 
-      const translated = transData.candidates[0].content.parts[0].text.trim();
-      document.getElementById(fromLang + 'Translated').textContent = translated;
-      lastTranslated[fromLang] = { translated, toLang };
-      setBar(fromLang, 80);
-
-      // Broadcast to other device
-      if (isConnected && channel) {
-        await channel.send({ type: 'broadcast', event: 'translation', payload: { fromLang, original: text, translated } });
+      const data = await res.json();
+      if (data.error) {
+        document.getElementById(fromLang + 'Translated').textContent = '⚠️ ' + data.error;
+        stopListening(); return;
       }
 
-      // Play locally too
-      setLabel(fromLang, fromLang === 'tr' ? 'Sesli okunuyor...' : 'Speaking...');
-      await playTTS(translated, toLang);
+      const { translated, audio } = data;
 
+      // Show translation
+      const transEl = document.getElementById(fromLang + 'Translated');
+      transEl.textContent = translated;
+      transEl.classList.add('playing');
+      setBar(fromLang, 85);
+      setLabel(fromLang, fromLang === 'tr' ? 'Sesli okunuyor...' : 'Speaking...');
+
+      // Save for repeat
+      lastAudio[fromLang] = audio;
+
+      // Broadcast to other device (send audio too so they play it)
+      if (isConnected && channel) {
+        await channel.send({
+          type: 'broadcast', event: 'translation',
+          payload: { fromLang, original: text, translated, audio }
+        });
+      }
+
+      // Play locally
+      if (audio) await playBase64Audio(audio);
+
+      transEl.classList.remove('playing');
       setBar(fromLang, 0);
       setLabel(fromLang, fromLang === 'tr' ? 'Bas ve konuş' : 'Press and speak');
 
@@ -347,38 +316,21 @@
     stopListening();
   }
 
-  async function playTTS(text, language) {
-    const voice = language === 'tr'
-      ? (localStorage.getItem('t_trVoice') || 'Zephyr')
-      : (localStorage.getItem('t_enVoice') || 'Puck');
-
+  async function playBase64Audio(b64) {
     try {
-      const ttsRes = await fetch(TTS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON}` },
-        body: JSON.stringify({ text, voice, language })
-      });
-
-      if (!ttsRes.ok) {
-        const errText = await ttsRes.text();
-        console.error('TTS error:', ttsRes.status, errText);
-        return;
-      }
-
-      const audioBlob = await ttsRes.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
+      const binary = atob(b64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const blob = new Blob([bytes], { type: 'audio/wav' });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
       await new Promise((res) => { audio.onended = res; audio.onerror = res; audio.play().catch(res); });
-      URL.revokeObjectURL(audioUrl);
-    } catch(e) {
-      console.error('TTS exception:', e);
-    }
+      URL.revokeObjectURL(url);
+    } catch(e) { console.error('Audio play error:', e); }
   }
 
   async function repeatLast(lang) {
-    if (!lastTranslated[lang]) return;
-    const { translated, toLang } = lastTranslated[lang];
-    await playTTS(translated, toLang);
+    if (lastAudio[lang]) await playBase64Audio(lastAudio[lang]);
   }
 </script>
 </body>
