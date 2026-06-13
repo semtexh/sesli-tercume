@@ -12,56 +12,71 @@
     --tr-color: #e8a84c; --en-color: #4ca8e8; --success: #4caf7a; --error: #e84c4c;
   }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-  header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-  .logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-  header h1 { font-size: 18px; font-weight: 600; }
+  header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .logo { width: 34px; height: 34px; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  header h1 { font-size: 17px; font-weight: 600; }
   header p { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
 
-  .keys-section { margin: 16px 16px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-  .key-row { display: flex; flex-direction: column; gap: 6px; }
-  .key-row label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
-  .key-input-row { display: flex; gap: 8px; }
-  .api-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-size: 12px; font-family: monospace; outline: none; }
+  .setup { margin: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+  .setup-row { display: flex; gap: 8px; align-items: center; }
+  .setup-row label { font-size: 11px; color: var(--text-dim); white-space: nowrap; min-width: 80px; }
+  .api-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 12px; font-family: monospace; outline: none; }
   .api-input:focus { border-color: var(--gold-dim); }
-  .save-btn { background: var(--gold); color: #000; border: none; border-radius: 8px; padding: 10px 14px; font-size: 12px; font-weight: 700; cursor: pointer; }
-  .key-status { font-size: 11px; }
+  .save-btn { background: var(--gold); color: #000; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .key-status { font-size: 11px; text-align: center; }
   .key-status.ok { color: var(--success); }
   .key-status.err { color: var(--error); }
 
-  .voice-row { display: flex; gap: 8px; align-items: center; padding-top: 4px; border-top: 1px solid var(--border); }
-  .voice-row label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
-  .voice-select { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 12px; outline: none; }
+  .room-bar { margin: 0 12px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; display: flex; gap: 8px; align-items: center; }
+  .room-bar label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+  .room-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 13px; font-weight: 600; outline: none; text-transform: uppercase; letter-spacing: 1px; }
+  .join-btn { background: var(--en-color); color: #000; border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .join-btn.connected { background: var(--success); }
+  .connected-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); display: inline-block; margin-right: 4px; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  .speakers { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 16px; }
-  .speaker-card { background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-height: 200px; transition: border-color 0.3s; }
+  .voice-row { display: flex; gap: 8px; align-items: center; }
+  .voice-row label { font-size: 11px; color: var(--text-dim); white-space: nowrap; min-width: 80px; }
+  .voice-select { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; color: var(--text); font-size: 12px; outline: none; }
+
+  .speakers { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 12px 12px; }
+  .speaker-card { background: var(--surface); border: 2px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; min-height: 180px; transition: border-color 0.3s; }
   .speaker-card.tr-card { border-color: rgba(232,168,76,0.3); }
   .speaker-card.en-card { border-color: rgba(76,168,232,0.3); }
   .speaker-card.tr-card.listening { border-color: var(--tr-color); animation: pulse-border 1s infinite; }
   .speaker-card.en-card.listening { border-color: var(--en-color); animation: pulse-border 1s infinite; }
+  .speaker-card.incoming { background: rgba(76,175,122,0.08); border-color: var(--success) !important; }
   @keyframes pulse-border { 0%,100%{opacity:1} 50%{opacity:0.6} }
-  .speaker-flag { font-size: 32px; }
-  .speaker-name { font-size: 15px; font-weight: 700; }
-  .speaker-lang { font-size: 11px; color: var(--text-dim); margin-top: -10px; text-align: center; }
-  .mic-btn { width: 76px; height: 76px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 30px; transition: transform 0.15s; }
-  .tr-card .mic-btn { background: linear-gradient(135deg,#e8a84c,#c07830); box-shadow: 0 4px 20px rgba(232,168,76,0.35); }
-  .en-card .mic-btn { background: linear-gradient(135deg,#4ca8e8,#2080c0); box-shadow: 0 4px 20px rgba(76,168,232,0.35); }
+  .speaker-flag { font-size: 28px; }
+  .speaker-name { font-size: 14px; font-weight: 700; }
+  .speaker-lang { font-size: 10px; color: var(--text-dim); margin-top: -6px; text-align: center; }
+
+  .btn-row { display: flex; gap: 8px; align-items: center; }
+  .mic-btn { width: 68px; height: 68px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 26px; transition: transform 0.15s; flex-shrink: 0; }
+  .tr-card .mic-btn { background: linear-gradient(135deg,#e8a84c,#c07830); box-shadow: 0 4px 16px rgba(232,168,76,0.35); }
+  .en-card .mic-btn { background: linear-gradient(135deg,#4ca8e8,#2080c0); box-shadow: 0 4px 16px rgba(76,168,232,0.35); }
   .mic-btn:active { transform: scale(0.92); }
   .tr-card .mic-btn.recording { animation: mic-pulse-tr 0.8s infinite; }
   .en-card .mic-btn.recording { animation: mic-pulse-en 0.8s infinite; }
-  @keyframes mic-pulse-tr { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,168,76,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 18px rgba(232,168,76,0)} 100%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,168,76,0)} }
-  @keyframes mic-pulse-en { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(76,168,232,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 18px rgba(76,168,232,0)} 100%{transform:scale(1);box-shadow:0 0 0 0 rgba(76,168,232,0)} }
-  .mic-btn-label { font-size: 11px; color: var(--text-dim); margin-top: -8px; }
+  @keyframes mic-pulse-tr { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,168,76,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 16px rgba(232,168,76,0)} 100%{transform:scale(1)} }
+  @keyframes mic-pulse-en { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(76,168,232,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 16px rgba(76,168,232,0)} 100%{transform:scale(1)} }
+
+  .repeat-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); color: var(--text-dim); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .repeat-btn:active { transform: scale(0.92); }
+  .repeat-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+  .mic-btn-label { font-size: 10px; color: var(--text-dim); margin-top: -4px; }
   .status-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; width: 100%; }
   .status-bar-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.4s; }
   .tr-card .status-bar-fill { background: var(--tr-color); }
   .en-card .status-bar-fill { background: var(--en-color); }
-  .result-box { width: 100%; min-height: 60px; background: var(--bg); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 5px; }
-  .result-original { font-size: 12px; color: var(--text-dim); font-style: italic; min-height: 16px; }
-  .result-translated { font-size: 14px; font-weight: 500; min-height: 20px; }
+  .result-box { width: 100%; min-height: 54px; background: var(--bg); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+  .result-original { font-size: 11px; color: var(--text-dim); font-style: italic; min-height: 14px; }
+  .result-translated { font-size: 13px; font-weight: 500; min-height: 18px; }
   .result-translated.playing { color: var(--gold); }
-  .divider { display: flex; align-items: center; gap: 10px; padding: 0 16px; margin-top: -4px; }
+  .divider { display: flex; align-items: center; gap: 10px; padding: 0 12px; }
   .divider-line { flex: 1; height: 1px; background: var(--border); }
-  .divider-icon { font-size: 18px; color: var(--text-dim); }
+  .divider-icon { font-size: 16px; color: var(--text-dim); }
 </style>
 </head>
 <body>
@@ -70,22 +85,19 @@
   <div class="logo">🗣️</div>
   <div>
     <h1>Sesli Tercüme</h1>
-    <p>Türkçe ↔ English — Powered by Gemini</p>
+    <p>Türkçe ↔ English — Gemini</p>
   </div>
 </header>
 
-<div class="keys-section">
-  <div class="key-row">
-    <label>Gemini API Key (Çeviri + Ses)</label>
-    <div class="key-input-row">
-      <input type="password" class="api-input" id="geminiKey" placeholder="AIza...">
-      <button class="save-btn" onclick="saveKeys()">Kaydet</button>
-    </div>
-    <div class="key-status" id="keyStatus"></div>
+<div class="setup">
+  <div class="setup-row">
+    <label>Gemini Key</label>
+    <input type="password" class="api-input" id="geminiKey" placeholder="AIza...">
+    <button class="save-btn" onclick="saveKeys()">Kaydet</button>
   </div>
-
+  <div class="key-status" id="keyStatus"></div>
   <div class="voice-row">
-    <label>🇹🇷 Annem sesi</label>
+    <label>🇹🇷 Annem</label>
     <select class="voice-select" id="trVoice">
       <option value="Zephyr">Zephyr (Kadın, sıcak)</option>
       <option value="Aoede">Aoede (Kadın, yumuşak)</option>
@@ -95,15 +107,21 @@
     </select>
   </div>
   <div class="voice-row">
-    <label>🇺🇸 Çocuklar sesi</label>
+    <label>🇺🇸 Çocuklar</label>
     <select class="voice-select" id="enVoice">
       <option value="Puck">Puck (Genç, enerjik)</option>
       <option value="Fenrir">Fenrir (Genç erkek)</option>
       <option value="Kore">Kore (Genç kadın)</option>
-      <option value="Charon">Charon (Erkek, derin)</option>
-      <option value="Aoede">Aoede (Kadın, yumuşak)</option>
+      <option value="Aoede">Aoede (Kadın)</option>
+      <option value="Charon">Charon (Erkek)</option>
     </select>
   </div>
+</div>
+
+<div class="room-bar">
+  <label>Oda Kodu</label>
+  <input type="text" class="room-input" id="roomCode" placeholder="AILE" maxlength="8">
+  <button class="join-btn" id="joinBtn" onclick="toggleRoom()">Bağlan</button>
 </div>
 
 <div class="speakers">
@@ -111,7 +129,10 @@
     <span class="speaker-flag">🇹🇷</span>
     <div class="speaker-name">ANNEM</div>
     <div class="speaker-lang">Türkçe konuşur → İngilizceye çevrilir</div>
-    <button class="mic-btn" id="trMicBtn" onclick="startListening('tr')">🎤</button>
+    <div class="btn-row">
+      <button class="mic-btn" id="trMicBtn" onclick="startListening('tr')">🎤</button>
+      <button class="repeat-btn" id="trRepeat" onclick="repeatLast('tr')" title="Tekrarla">🔁</button>
+    </div>
     <div class="mic-btn-label" id="trMicLabel">Bas ve konuş</div>
     <div class="status-bar"><div class="status-bar-fill" id="trBar"></div></div>
     <div class="result-box">
@@ -130,7 +151,10 @@
     <span class="speaker-flag">🇺🇸</span>
     <div class="speaker-name">ÇOCUKLAR</div>
     <div class="speaker-lang">English → Türkçeye çevrilir</div>
-    <button class="mic-btn" id="enMicBtn" onclick="startListening('en')">🎤</button>
+    <div class="btn-row">
+      <button class="mic-btn" id="enMicBtn" onclick="startListening('en')">🎤</button>
+      <button class="repeat-btn" id="enRepeat" onclick="repeatLast('en')" title="Repeat">🔁</button>
+    </div>
     <div class="mic-btn-label" id="enMicLabel">Press and speak</div>
     <div class="status-bar"><div class="status-bar-fill" id="enBar"></div></div>
     <div class="result-box">
@@ -140,13 +164,22 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co/functions/v1/tercume-tts';
+  const SUPABASE_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkcnJpZ3dyaHB1aGFxdnFnaGh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MzIzNTMsImV4cCI6MjA5MDAwODM1M30.nOGOhdh12wHmkLBAbhKa2LzMxjFiJXrWi3JnhMOSceA';
+  const TTS_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co/functions/v1/tercume-tts';
 
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  let channel = null;
+  let isConnected = false;
+  let lastTranslated = { tr: null, en: null };
+
+  // Load saved
   document.getElementById('geminiKey').value = localStorage.getItem('t_geminiKey') || '';
   document.getElementById('trVoice').value = localStorage.getItem('t_trVoice') || 'Zephyr';
   document.getElementById('enVoice').value = localStorage.getItem('t_enVoice') || 'Puck';
+  document.getElementById('roomCode').value = localStorage.getItem('t_roomCode') || 'AILE';
 
   if (localStorage.getItem('t_geminiKey')) showStatus('✓ Hazır!', 'ok');
 
@@ -163,9 +196,55 @@
     const gk = document.getElementById('geminiKey').value.trim();
     if (!gk) { showStatus('✗ Gemini key boş', 'err'); return; }
     localStorage.setItem('t_geminiKey', gk);
-    showStatus('✓ Kaydedildi! Hazır.', 'ok');
+    showStatus('✓ Kaydedildi!', 'ok');
   }
 
+  // Room
+  async function toggleRoom() {
+    if (isConnected) {
+      await channel.unsubscribe();
+      channel = null;
+      isConnected = false;
+      document.getElementById('joinBtn').textContent = 'Bağlan';
+      document.getElementById('joinBtn').classList.remove('connected');
+      return;
+    }
+
+    const code = document.getElementById('roomCode').value.trim().toUpperCase();
+    if (!code) { alert('Oda kodu gir!'); return; }
+    localStorage.setItem('t_roomCode', code);
+
+    channel = supabase.channel('tercume-' + code, { config: { broadcast: { self: false } } });
+
+    channel.on('broadcast', { event: 'translation' }, ({ payload }) => {
+      handleIncoming(payload);
+    });
+
+    await channel.subscribe();
+    isConnected = true;
+    document.getElementById('joinBtn').textContent = '🟢 Bağlı';
+    document.getElementById('joinBtn').classList.add('connected');
+  }
+
+  async function handleIncoming(payload) {
+    const { fromLang, original, translated } = payload;
+    const myLang = fromLang === 'tr' ? 'en' : 'tr';
+
+    // Show on my screen
+    document.getElementById(fromLang + 'Original').textContent = original;
+    document.getElementById(fromLang + 'Translated').textContent = translated;
+    lastTranslated[fromLang] = { translated, toLang: myLang };
+
+    // Flash incoming
+    const card = document.getElementById(fromLang + 'Card');
+    card.classList.add('incoming');
+    setTimeout(() => card.classList.remove('incoming'), 2000);
+
+    // Play TTS on my device
+    await playTTS(translated, myLang);
+  }
+
+  // Speech recognition
   let recognition = null, isListening = false, currentLang = null;
   const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -183,7 +262,7 @@
     const btn = document.getElementById(lang + 'MicBtn');
     btn.classList.add('recording');
     btn.textContent = '⏹️';
-    setLabel(lang, lang === 'tr' ? 'Dinliyor... (dur için bas)' : 'Listening... (tap to stop)');
+    setLabel(lang, lang === 'tr' ? 'Dinliyor...' : 'Listening...');
     setBar(lang, 25);
 
     recognition = new SpeechRec();
@@ -197,7 +276,7 @@
       if (e.results[e.results.length - 1].isFinal) {
         setBar(lang, 55);
         setLabel(lang, lang === 'tr' ? 'Çeviriliyor...' : 'Translating...');
-        await translateAndSpeak(lang, transcript);
+        await translateAndBroadcast(lang, transcript);
       }
     };
 
@@ -224,63 +303,40 @@
     currentLang = null;
   }
 
-  async function translateAndSpeak(fromLang, text) {
+  async function translateAndBroadcast(fromLang, text) {
     const geminiKey = localStorage.getItem('t_geminiKey');
     const toLang = fromLang === 'tr' ? 'en' : 'tr';
 
     const prompt = fromLang === 'tr'
-      ? `Translate this Turkish text to natural English. Return ONLY the translation, no explanations:\n${text}`
+      ? `Translate this Turkish text to natural English. Return ONLY the translation:\n${text}`
       : `Bu İngilizce metni doğal Türkçeye çevir. SADECE çeviriyi yaz:\n${text}`;
 
     try {
-      // 1. Gemini çeviri
       const transRes = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { maxOutputTokens: 500, temperature: 0.3 }
-          })
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 500, temperature: 0.3 } })
         }
       );
       const transData = await transRes.json();
       if (transData.error) { document.getElementById(fromLang + 'Translated').textContent = '⚠️ ' + transData.error.message; stopListening(); return; }
 
       const translated = transData.candidates[0].content.parts[0].text.trim();
-      const transEl = document.getElementById(fromLang + 'Translated');
-      transEl.textContent = translated;
-      transEl.classList.add('playing');
+      document.getElementById(fromLang + 'Translated').textContent = translated;
+      lastTranslated[fromLang] = { translated, toLang };
       setBar(fromLang, 80);
-      setLabel(fromLang, fromLang === 'tr' ? 'Sesli okunuyor...' : 'Speaking...');
 
-      // 2. Supabase Edge Function → Gemini TTS
-      const voice = toLang === 'tr'
-        ? (localStorage.getItem('t_trVoice') || 'Zephyr')
-        : (localStorage.getItem('t_enVoice') || 'Puck');
-
-      const ttsRes = await fetch(SUPABASE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON}` },
-        body: JSON.stringify({ text: translated, voice, language: toLang })
-      });
-
-      if (!ttsRes.ok) {
-        const errText = await ttsRes.text();
-        console.error('TTS status:', ttsRes.status, errText);
-        transEl.textContent += ' ⚠️ TTS ' + ttsRes.status + ': ' + errText.slice(0, 100);
-        transEl.classList.remove('playing');
-        stopListening(); return;
+      // Broadcast to other device
+      if (isConnected && channel) {
+        await channel.send({ type: 'broadcast', event: 'translation', payload: { fromLang, original: text, translated } });
       }
 
-      const audioBlob = await ttsRes.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      await new Promise((res) => { audio.onended = res; audio.onerror = res; audio.play().catch(res); });
-      URL.revokeObjectURL(audioUrl);
+      // Play locally too
+      setLabel(fromLang, fromLang === 'tr' ? 'Sesli okunuyor...' : 'Speaking...');
+      await playTTS(translated, toLang);
 
-      transEl.classList.remove('playing');
       setBar(fromLang, 0);
       setLabel(fromLang, fromLang === 'tr' ? 'Bas ve konuş' : 'Press and speak');
 
@@ -289,6 +345,40 @@
       setBar(fromLang, 0);
     }
     stopListening();
+  }
+
+  async function playTTS(text, language) {
+    const voice = language === 'tr'
+      ? (localStorage.getItem('t_trVoice') || 'Zephyr')
+      : (localStorage.getItem('t_enVoice') || 'Puck');
+
+    try {
+      const ttsRes = await fetch(TTS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON}` },
+        body: JSON.stringify({ text, voice, language })
+      });
+
+      if (!ttsRes.ok) {
+        const errText = await ttsRes.text();
+        console.error('TTS error:', ttsRes.status, errText);
+        return;
+      }
+
+      const audioBlob = await ttsRes.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      await new Promise((res) => { audio.onended = res; audio.onerror = res; audio.play().catch(res); });
+      URL.revokeObjectURL(audioUrl);
+    } catch(e) {
+      console.error('TTS exception:', e);
+    }
+  }
+
+  async function repeatLast(lang) {
+    if (!lastTranslated[lang]) return;
+    const { translated, toLang } = lastTranslated[lang];
+    await playTTS(translated, toLang);
   }
 </script>
 </body>
