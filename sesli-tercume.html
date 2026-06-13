@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sesli Tercüme</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --bg: #0a0a0f; --surface: #13131a; --border: #1e1e2e;
+    --gold: #c9a84c; --gold-dim: #8a6e2f; --text: #f0ece0; --text-dim: #7a7a8a;
+    --tr-color: #e8a84c; --en-color: #4ca8e8; --success: #4caf7a; --error: #e84c4c;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+  header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header p { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+
+  .keys-section { margin: 16px 16px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .key-row { display: flex; flex-direction: column; gap: 6px; }
+  .key-row label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .key-input-row { display: flex; gap: 8px; }
+  .api-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-size: 12px; font-family: monospace; outline: none; }
+  .api-input:focus { border-color: var(--gold-dim); }
+  .save-btn { background: var(--gold); color: #000; border: none; border-radius: 8px; padding: 10px 14px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .key-status { font-size: 11px; }
+  .key-status.ok { color: var(--success); }
+  .key-status.err { color: var(--error); }
+
+  .voice-row { display: flex; gap: 8px; align-items: center; padding-top: 4px; border-top: 1px solid var(--border); }
+  .voice-row label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+  .voice-select { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; color: var(--text); font-size: 12px; outline: none; }
+
+  .speakers { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+  .speaker-card { background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-height: 200px; transition: border-color 0.3s; }
+  .speaker-card.tr-card { border-color: rgba(232,168,76,0.3); }
+  .speaker-card.en-card { border-color: rgba(76,168,232,0.3); }
+  .speaker-card.tr-card.listening { border-color: var(--tr-color); animation: pulse-border 1s infinite; }
+  .speaker-card.en-card.listening { border-color: var(--en-color); animation: pulse-border 1s infinite; }
+  @keyframes pulse-border { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  .speaker-flag { font-size: 32px; }
+  .speaker-name { font-size: 15px; font-weight: 700; }
+  .speaker-lang { font-size: 11px; color: var(--text-dim); margin-top: -10px; text-align: center; }
+  .mic-btn { width: 76px; height: 76px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 30px; transition: transform 0.15s; }
+  .tr-card .mic-btn { background: linear-gradient(135deg,#e8a84c,#c07830); box-shadow: 0 4px 20px rgba(232,168,76,0.35); }
+  .en-card .mic-btn { background: linear-gradient(135deg,#4ca8e8,#2080c0); box-shadow: 0 4px 20px rgba(76,168,232,0.35); }
+  .mic-btn:active { transform: scale(0.92); }
+  .tr-card .mic-btn.recording { animation: mic-pulse-tr 0.8s infinite; }
+  .en-card .mic-btn.recording { animation: mic-pulse-en 0.8s infinite; }
+  @keyframes mic-pulse-tr { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,168,76,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 18px rgba(232,168,76,0)} 100%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,168,76,0)} }
+  @keyframes mic-pulse-en { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(76,168,232,0.7)} 70%{transform:scale(1.06);box-shadow:0 0 0 18px rgba(76,168,232,0)} 100%{transform:scale(1);box-shadow:0 0 0 0 rgba(76,168,232,0)} }
+  .mic-btn-label { font-size: 11px; color: var(--text-dim); margin-top: -8px; }
+  .status-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; width: 100%; }
+  .status-bar-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.4s; }
+  .tr-card .status-bar-fill { background: var(--tr-color); }
+  .en-card .status-bar-fill { background: var(--en-color); }
+  .result-box { width: 100%; min-height: 60px; background: var(--bg); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 5px; }
+  .result-original { font-size: 12px; color: var(--text-dim); font-style: italic; min-height: 16px; }
+  .result-translated { font-size: 14px; font-weight: 500; min-height: 20px; }
+  .result-translated.playing { color: var(--gold); }
+  .divider { display: flex; align-items: center; gap: 10px; padding: 0 16px; margin-top: -4px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-size: 18px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🗣️</div>
+  <div>
+    <h1>Sesli Tercüme</h1>
+    <p>Türkçe ↔ English — Powered by Gemini</p>
+  </div>
+</header>
+
+<div class="keys-section">
+  <div class="key-row">
+    <label>Gemini API Key (Çeviri + Ses)</label>
+    <div class="key-input-row">
+      <input type="password" class="api-input" id="geminiKey" placeholder="AIza...">
+      <button class="save-btn" onclick="saveKeys()">Kaydet</button>
+    </div>
+    <div class="key-status" id="keyStatus"></div>
+  </div>
+
+  <div class="voice-row">
+    <label>🇹🇷 Annem sesi</label>
+    <select class="voice-select" id="trVoice">
+      <option value="Zephyr">Zephyr (Kadın, sıcak)</option>
+      <option value="Aoede">Aoede (Kadın, yumuşak)</option>
+      <option value="Leda">Leda (Kadın)</option>
+      <option value="Orus">Orus (Erkek)</option>
+      <option value="Charon">Charon (Erkek, derin)</option>
+    </select>
+  </div>
+  <div class="voice-row">
+    <label>🇺🇸 Çocuklar sesi</label>
+    <select class="voice-select" id="enVoice">
+      <option value="Puck">Puck (Genç, enerjik)</option>
+      <option value="Fenrir">Fenrir (Genç erkek)</option>
+      <option value="Kore">Kore (Genç kadın)</option>
+      <option value="Charon">Charon (Erkek, derin)</option>
+      <option value="Aoede">Aoede (Kadın, yumuşak)</option>
+    </select>
+  </div>
+</div>
+
+<div class="speakers">
+  <div class="speaker-card tr-card" id="trCard">
+    <span class="speaker-flag">🇹🇷</span>
+    <div class="speaker-name">ANNEM</div>
+    <div class="speaker-lang">Türkçe konuşur → İngilizceye çevrilir</div>
+    <button class="mic-btn" id="trMicBtn" onclick="startListening('tr')">🎤</button>
+    <div class="mic-btn-label" id="trMicLabel">Bas ve konuş</div>
+    <div class="status-bar"><div class="status-bar-fill" id="trBar"></div></div>
+    <div class="result-box">
+      <div class="result-original" id="trOriginal">—</div>
+      <div class="result-translated" id="trTranslated">—</div>
+    </div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon">⇅</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="speaker-card en-card" id="enCard">
+    <span class="speaker-flag">🇺🇸</span>
+    <div class="speaker-name">ÇOCUKLAR</div>
+    <div class="speaker-lang">English → Türkçeye çevrilir</div>
+    <button class="mic-btn" id="enMicBtn" onclick="startListening('en')">🎤</button>
+    <div class="mic-btn-label" id="enMicLabel">Press and speak</div>
+    <div class="status-bar"><div class="status-bar-fill" id="enBar"></div></div>
+    <div class="result-box">
+      <div class="result-original" id="enOriginal">—</div>
+      <div class="result-translated" id="enTranslated">—</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://bdrrigwrhpuhaqvqghht.supabase.co/functions/v1/tercume-tts';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkcnJpZ3dyaHB1aGFxdnFnaGh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MzIzNTMsImV4cCI6MjA5MDAwODM1M30.nOGOhdh12wHmkLBAbhKa2LzMxjFiJXrWi3JnhMOSceA';
+
+  document.getElementById('geminiKey').value = localStorage.getItem('t_geminiKey') || '';
+  document.getElementById('trVoice').value = localStorage.getItem('t_trVoice') || 'Zephyr';
+  document.getElementById('enVoice').value = localStorage.getItem('t_enVoice') || 'Puck';
+
+  if (localStorage.getItem('t_geminiKey')) showStatus('✓ Hazır!', 'ok');
+
+  document.getElementById('trVoice').onchange = () => localStorage.setItem('t_trVoice', document.getElementById('trVoice').value);
+  document.getElementById('enVoice').onchange = () => localStorage.setItem('t_enVoice', document.getElementById('enVoice').value);
+
+  function showStatus(msg, type) {
+    const el = document.getElementById('keyStatus');
+    el.textContent = msg;
+    el.className = 'key-status ' + type;
+  }
+
+  function saveKeys() {
+    const gk = document.getElementById('geminiKey').value.trim();
+    if (!gk) { showStatus('✗ Gemini key boş', 'err'); return; }
+    localStorage.setItem('t_geminiKey', gk);
+    showStatus('✓ Kaydedildi! Hazır.', 'ok');
+  }
+
+  let recognition = null, isListening = false, currentLang = null;
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  function setBar(lang, pct) { document.getElementById(lang + 'Bar').style.width = pct + '%'; }
+  function setLabel(lang, text) { document.getElementById(lang + 'MicLabel').textContent = text; }
+
+  async function startListening(lang) {
+    if (isListening) { stopListening(); return; }
+    if (!localStorage.getItem('t_geminiKey')) { alert('Önce Gemini API key girin!'); return; }
+    if (!SpeechRec) { alert('Chrome kullanın!'); return; }
+
+    isListening = true;
+    currentLang = lang;
+    document.getElementById(lang + 'Card').classList.add('listening');
+    const btn = document.getElementById(lang + 'MicBtn');
+    btn.classList.add('recording');
+    btn.textContent = '⏹️';
+    setLabel(lang, lang === 'tr' ? 'Dinliyor... (dur için bas)' : 'Listening... (tap to stop)');
+    setBar(lang, 25);
+
+    recognition = new SpeechRec();
+    recognition.lang = lang === 'tr' ? 'tr-TR' : 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
+    recognition.onresult = async (e) => {
+      const transcript = Array.from(e.results).map(r => r[0].transcript).join('');
+      document.getElementById(lang + 'Original').textContent = transcript;
+      if (e.results[e.results.length - 1].isFinal) {
+        setBar(lang, 55);
+        setLabel(lang, lang === 'tr' ? 'Çeviriliyor...' : 'Translating...');
+        await translateAndSpeak(lang, transcript);
+      }
+    };
+
+    recognition.onerror = (e) => {
+      if (e.error === 'not-allowed') alert('Mikrofon izni ver!');
+      stopListening();
+    };
+    recognition.onend = () => { if (isListening) stopListening(); };
+    try { recognition.start(); } catch(e) { alert('Mikrofon hatası: ' + e.message); stopListening(); }
+  }
+
+  function stopListening() {
+    if (recognition) { try { recognition.stop(); } catch(e) {} recognition = null; }
+    if (currentLang) {
+      const lang = currentLang;
+      document.getElementById(lang + 'Card').classList.remove('listening');
+      const btn = document.getElementById(lang + 'MicBtn');
+      btn.classList.remove('recording');
+      btn.textContent = '🎤';
+      setLabel(lang, lang === 'tr' ? 'Bas ve konuş' : 'Press and speak');
+      setBar(lang, 0);
+    }
+    isListening = false;
+    currentLang = null;
+  }
+
+  async function translateAndSpeak(fromLang, text) {
+    const geminiKey = localStorage.getItem('t_geminiKey');
+    const toLang = fromLang === 'tr' ? 'en' : 'tr';
+
+    const prompt = fromLang === 'tr'
+      ? `Translate this Turkish text to natural English. Return ONLY the translation, no explanations:\n${text}`
+      : `Bu İngilizce metni doğal Türkçeye çevir. SADECE çeviriyi yaz:\n${text}`;
+
+    try {
+      // 1. Gemini çeviri
+      const transRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { maxOutputTokens: 500, temperature: 0.3 }
+          })
+        }
+      );
+      const transData = await transRes.json();
+      if (transData.error) { document.getElementById(fromLang + 'Translated').textContent = '⚠️ ' + transData.error.message; stopListening(); return; }
+
+      const translated = transData.candidates[0].content.parts[0].text.trim();
+      const transEl = document.getElementById(fromLang + 'Translated');
+      transEl.textContent = translated;
+      transEl.classList.add('playing');
+      setBar(fromLang, 80);
+      setLabel(fromLang, fromLang === 'tr' ? 'Sesli okunuyor...' : 'Speaking...');
+
+      // 2. Supabase Edge Function → Gemini TTS
+      const voice = toLang === 'tr'
+        ? (localStorage.getItem('t_trVoice') || 'Zephyr')
+        : (localStorage.getItem('t_enVoice') || 'Puck');
+
+      const ttsRes = await fetch(SUPABASE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: translated, voice, language: toLang })
+      });
+
+      if (!ttsRes.ok) {
+        const err = await ttsRes.json();
+        transEl.textContent += ' ⚠️ TTS: ' + (err.error || 'hata');
+        transEl.classList.remove('playing');
+        stopListening(); return;
+      }
+
+      const audioBlob = await ttsRes.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      await new Promise((res) => { audio.onended = res; audio.onerror = res; audio.play().catch(res); });
+      URL.revokeObjectURL(audioUrl);
+
+      transEl.classList.remove('playing');
+      setBar(fromLang, 0);
+      setLabel(fromLang, fromLang === 'tr' ? 'Bas ve konuş' : 'Press and speak');
+
+    } catch(e) {
+      document.getElementById(fromLang + 'Translated').textContent = '⚠️ Hata: ' + e.message;
+      setBar(fromLang, 0);
+    }
+    stopListening();
+  }
+</script>
+</body>
+</html>
